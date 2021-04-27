@@ -1,18 +1,20 @@
 require 'rails_helper'
 
-RSpec.describe "StaticPages", type: :request do
+RSpec.describe "静的ページ", type: :request do
 
-  describe "GET /home" do
-    it "returns http success" do
-      get "/static_pages/home"
-      expect(response).to have_http_status(:success)
+  describe "トップページ" do
+    it "正常なレスポンスを返すこと" do
+      get root_path
+      expect(response).to be_success
+      expect(response).to have_http_status "200"
     end
   end
 
-  describe "GET /help" do
-    it "returns http success" do
-      get "/static_pages/help"
-      expect(response).to have_http_status(:success)
+  describe "ヘルプページ" do
+    it "正常なレスポンスを返すこと" do
+      get help_path
+      expect(response).to be_success
+      expect(response).to have_http_status "200"
     end
   end
 
