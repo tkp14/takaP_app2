@@ -7,8 +7,24 @@ RSpec.describe "StaticPages", type: :system do
         visit root_path
       end
 
-      it "Sample Appが表示されていること" do
-        expect(page).to have_content 'Sample App'
+      it "Sample Appが表示されてリンクが繋がっていること" do
+        expect(page).to have_link "sample app", href: root_path
+      end
+
+      it "Homeが表示されてリンクが繋がっていること" do
+        expect(page).to have_link "Home", href: root_path
+      end
+
+      it "Helpが表示されてリンクが繋がっていること" do
+        expect(page).to have_link "Help", href: help_path
+      end
+
+      it "Aboutが表示されてリンクが繋がっていること" do
+        expect(page).to have_link "About", href: about_path
+      end
+
+      it "Contactが表示されてリンクが繋がっていること" do
+        expect(page).to have_link "Contact", href: contact_path
       end
 
       it "正しいタイトルが表示されることを確認" do
