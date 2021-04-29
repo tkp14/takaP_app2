@@ -40,4 +40,16 @@ RSpec.describe "StaticPages", type: :system do
       end
     end
   end
+
+  describe "コンタクトページ" do
+    context "ページ全体" do
+      before do
+        visit contact_path
+      end
+
+      it "正しいタイトルが表示されることを確認" do
+        expect(page).to have_title full_title
+      end
+    end
+  end
 end
