@@ -7,6 +7,10 @@ RSpec.describe "StaticPages", type: :system do
         visit root_path
       end
 
+      it "正しいタイトルが表示されることを確認" do
+        expect(page).to have_title full_title
+      end
+
       it "sample appが表示されてリンクが繋がっていること" do
         expect(page).to have_link "sample app", href: root_path
       end
