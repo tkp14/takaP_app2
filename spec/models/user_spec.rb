@@ -27,7 +27,7 @@ RSpec.describe User, type: :model do
     end
 
     it "メールアドレスが255文字以内であること" do
-      user = build(:user, email: "a" * 255)
+      user = build(:user, email: "a" * 256)
       user.valid?
       expect(user.errors[:email]).to include("は255文字以内で入力してください")
     end
@@ -41,7 +41,7 @@ RSpec.describe User, type: :model do
     it "重複したメールアドレスなら無効な状態であること" do
       other_user = build(:user, email: user.email)
       other_user.valid?
-      expect(user.errors[:email]).to include("はすでに使用されています")
+      expect(other_user.errors[:email]).to include("はすでに存在します")
     end
 
     it "パスワードがなければ無効な状態であること" do
@@ -51,10 +51,13 @@ RSpec.describe User, type: :model do
     end
 
     it "パスワードが6文字以上であること" do
-      user = build(:user, password: fooba, password_confirmation: fooba)
+      user = build(:user, password: "taka", password_confirmation: "taka")
       user.valid?
       expect(user.errors[:password]).to include("は6文字以上で入力してください")
-      user = build(:user, password: foobar, password_confirmation: foobar)
+    end
+
+    it "パスワードが有効であること" do
+      user = build(:user, password: "takahiro", password_confirmation: "takahiro")
       user.valid?
       expect(user).to be_valid
     end
