@@ -1,5 +1,5 @@
 module SessionsHelper
-  # 渡されたユーザーでログインする
+  # 渡されたユーザーでログインする(ログインした状態)
   def log_in(user)
     session[:user_id] = user.id
   end
@@ -7,7 +7,12 @@ module SessionsHelper
   # 現在ログイン中のユーザーを返す (いる場合)
   def current_user
     if session[:user_id]
-      @current_user ||= User.find_by(id: session[:user_id])
+      @current_user ||= User.find_by(id: session[:user_id]) #これは見つからなければnilを返す
     end
+  end
+
+    # ユーザーがログインしていればtrue、その他ならfalseを返す
+  def logged_in?
+    !current_user.nil?
   end
 end
