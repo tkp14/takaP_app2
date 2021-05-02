@@ -45,9 +45,9 @@ RSpec.describe "Users", type: :system do
         visit user_path(user)
       end
 
-      # it "正しいタイトルが表示されることを確認" do
-      #   expect(page).to have_title full_title('プロフィール')
-      # end
+      it "正しいタイトルが表示されることを確認" do
+        expect(page).to have_title full_title(user.name)
+      end
 
       it "ユーザー情報が表示されることを確認" do
         expect(page).to have_content user.name
