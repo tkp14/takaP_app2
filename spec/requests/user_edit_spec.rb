@@ -2,8 +2,10 @@ require 'rails_helper'
 
 RSpec.describe "プロフィールページ", type: :request do
   let!(:user) { create(:user) }
+  let!(:other_user) { create(:user) }
 
   before do
+
     get edit_user_path(user)
   end
 

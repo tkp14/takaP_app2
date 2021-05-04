@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Users", type: :system do
   let(:user) { create(:user) }
+  let(:other_user) { create(:user) }
 
   describe "ユーザー登録ページ" do
     before do
