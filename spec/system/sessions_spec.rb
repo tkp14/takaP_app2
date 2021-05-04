@@ -24,6 +24,12 @@ RSpec.describe "Sessions", type: :system do
 
       it "ログインフォームが正しく表示される" do
         expect(page).to have_css 'input.form-control'
+        expect(page).to have_css 'input.form-control'
+      end
+
+      it "チェックボックスが表示されていること" do
+        expect(page).to have_content 'Remember me on this computer'
+        expect(page).to have_css 'input#session_remember_me'
       end
 
       it "ログインボタンが表示されていること" do
