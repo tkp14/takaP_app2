@@ -62,7 +62,7 @@ RSpec.describe "Sessions", type: :system do
         expect(page).to have_link 'Home', href: root_path
         expect(page).to have_link 'Help', href: help_path
         expect(page).to have_link 'About', href: about_path
-        expect(page).to have_link 'Users', href: root_path
+        expect(page).to have_link 'Users', href: users_path
 
        # expect(page).to have_link 'Profile', href: current_user
 
