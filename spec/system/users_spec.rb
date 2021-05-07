@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe "Users", type: :system do
   let(:user) { create(:user) }
-  let(:other_user) { create(:user) }
   let(:admin_user) { create(:user, :admin) }
 
   describe "ユーザー登録ページ" do
@@ -133,7 +132,7 @@ RSpec.describe "Users", type: :system do
         create_list(:user, 10)
         login_for_system(admin_user)
         visit users_path
-        click_on "削除"
+        click_on "削除", match: :first
         page.driver.browser.switch_to.alert.accept
         expect(page).to have_content "User deleted"
       end
