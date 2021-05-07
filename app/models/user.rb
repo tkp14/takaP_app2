@@ -41,7 +41,7 @@ class User < ApplicationRecord
   private
     # メールアドレスをすべて小文字にする
     def downcase_email
-      self.email = email.downcase
+      email.downcase!
     end
 
     # 有効化トークンとダイジェストを作成および代入する
