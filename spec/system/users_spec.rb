@@ -26,7 +26,8 @@ RSpec.describe "Users", type: :system do
         fill_in "パスワード", with: "foobar"
         fill_in "パスワード(確認)", with: "foobar"
         click_button 'Create my account'
-        expect(page).to have_content "Welcome to the Sample App!"
+        # expect(page).to have_content "Welcome to the Sample App!"
+        expect(page).to have_content "Please check your email to activate your account."
       end
 
       it "無効なユーザーでユーザー登録を行うと登録失敗のフラッシュが表示されること" do
