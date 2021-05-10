@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "ユーザー登録ページ", type: :request do
+
   before do
     get signup_path
   end
@@ -17,8 +18,9 @@ RSpec.describe "ユーザー登録ページ", type: :request do
                                         password: "password",
                                         password_confirmation: "password" } }
     }.to change(User, :count).by(1)
-    redirect_to root_url
-    follow_redirect!
+    expect(ActionMailer::Base.deliveries.size).to eq(1)
+    expect(response).to redirect_to root_url
+    expect(is_logged_in?).to be_falsy
     # expect(response).to render_template('users/show')
     # expect(is_logged_in?).to be_truthy
   end

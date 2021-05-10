@@ -14,9 +14,8 @@ RSpec.describe "ログイン機能", type: :request do
       get login_path
       post login_path, params: { session: { email: user.email,
                                             password: user.password } }
-      redirect_to user
+      redirect_to root_url
       follow_redirect!
-      expect(response).to render_template('users/show')
       expect(is_logged_in?).to be_truthy  #ログインしている状態を確認
       delete logout_path
       expect(is_logged_in?).not_to be_truthy  #ログインしていない状態を確認
