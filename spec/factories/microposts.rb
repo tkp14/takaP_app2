@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :micropost do
-    content "MyText"
+    content { "micropost test" }
     association :user
     created_at { Time.current }
   end

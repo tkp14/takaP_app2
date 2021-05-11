@@ -11,6 +11,11 @@ RSpec.describe Micropost, type: :model do
       expect(micropost).to be_valid
     end
 
+    it "user_idがnilの場合エラーになること" do
+      micropost.user_id = nil
+      expect(micropost).to be_invalid
+    end
+
     it "テキストが140文字以内であること" do
       micropost = build(:micropost, content: "a" * 141)
       micropost.valid?

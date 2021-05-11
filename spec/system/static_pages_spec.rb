@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "StaticPages", type: :system do
   let(:user) { create(:user) }
+  let!(:micropost) { create(:micropost, user: user) }
 
   describe "トップページ" do
     context "ページ全体(ログインしていない場合)" do
@@ -40,12 +41,24 @@ RSpec.describe "StaticPages", type: :system do
         visit root_path
       end
 
+      # it "ヘッダーが切り替わること"
+
+      #ここはmicropostのシステムテストに書くべきかも
       it "正しいタイトルが表示されることを確認" do
         expect(page).to have_title full_title
       end
 
       it "Micropost Feedの文字が表示されること" do
         expect(page).to have_content 'Micropost Feed'
+      end
+
+      it "ポストのFeedとページネーションが表示されること" do
+        create_list(:micropost, 31, user: user)
+        visit root_path
+        expect(page).to have_css "div.pagination"
+        User.take(30).each do |m|
+          expect(page).to have_link m.name
+        end
       end
     end
   end
