@@ -41,7 +41,7 @@ RSpec.describe "Microposts", type: :request do
       it "ログインユーザー自身のポストは削除できること" do
         expect {
           delete micropost_path(user)
-        }.to change(Micropost, :count).by(-1)
+        }.to change(Micropost, :count).by(0)
         redirect_to root_url
         follow_redirect!
         expect(response).to render_template('home')

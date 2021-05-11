@@ -39,8 +39,8 @@ RSpec.describe "Microposts", type: :system do
       end
 
       it "自分のポスト削除後、削除成功のフラッシュが表示されること(Profile画面)" do
-        visit users_path
-        within find('#delete-post') do
+        visit user_path(user)
+        within find('.microposts') do
           click_on 'delete'
         end
         page.driver.browser.switch_to.alert.accept
