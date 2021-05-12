@@ -4,6 +4,8 @@ RSpec.describe "Microposts", type: :request do
   let!(:user) { create(:user) }
   let!(:other_user) { create(:user) }
   let!(:micropost) { create(:micropost, user: user) }
+  let(:picture_path) { File.join(Rails.root, 'spec/fixtures/test_default.png') }
+  let(:picture) { Rack::Test::UploadedFile.new(picture_path) }
 
   describe "ポストについて" do
     context "投稿処理" do
@@ -19,7 +21,8 @@ RSpec.describe "Microposts", type: :request do
 
       it "有効なデータで投稿できること" do
         expect {
-          post microposts_path, params: { micropost: { content: "Hello" } }
+          post microposts_path, params: { micropost: { content: "Hello",
+                                                       picture: picture } }
         }.to change(Micropost, :count).by(1)
         follow_redirect!
         expect(response).to render_template('home')
@@ -27,7 +30,8 @@ RSpec.describe "Microposts", type: :request do
 
       it "無効なデータで投稿できること" do
         expect {
-          post microposts_path, params: { micropost: { content: " " } }
+          post microposts_path, params: { micropost: { content: " ",
+                                                       picture: picture } }
         }.not_to change(Micropost, :count)
         expect(response).to render_template('home')
       end

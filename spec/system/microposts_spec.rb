@@ -3,24 +3,38 @@ require 'rails_helper'
 RSpec.describe "Microposts", type: :system do
   let!(:user) { create(:user) }
   let!(:other_user) { create(:user) }
+  let!(:micropost) { create(:micropost, :picture, user: user) }
 
   describe "ポストについて" do
     context "投稿機能" do
       before do
         login_for_system(user)
-        visit root_path
       end
 
       it "正しいデータを投稿すると成功のフラッシュが表示" do
+        visit root_path
         fill_in "text", with: "Hello"
+        attach_file "micropost[picture]", "#{Rails.root}/spec/fixtures/test_default.png"
         click_button "Post"
         expect(page).to have_content "Micropost created!"
       end
 
       it "無効なデータの場合は失敗のフラッシュ" do
+        visit root_path
         fill_in "text", with: " "
         click_button "Post"
         expect(page).to have_content "Contentを入力してください"
+      end
+
+      it "プロフィールページでもポストが正しく表示されていること" do
+        create_list(:micropost, 31, user: user)
+        visit user_path(user)
+        expect(page).to have_content 'Microposts'
+        expect(page).to have_css "div.pagination"
+        Micropost.take(30).each do |u|
+          expect(page).to have_content u.content
+        end
+        expect(micropost.picture.url).to include "test_default.png"
       end
     end
 
