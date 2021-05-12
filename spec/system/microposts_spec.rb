@@ -48,7 +48,7 @@ RSpec.describe "Microposts", type: :system do
       end
 
       it "違うユーザのプロフィールにアクセス(削除リンクがないことを確認)" do
-        visit users_path(other_user)
+        visit user_path(other_user)
         expect(page).not_to have_link "delete"
       end
     end
