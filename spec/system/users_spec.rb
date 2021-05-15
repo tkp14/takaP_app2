@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe "Users", type: :system do
   let(:user) { create(:user) }
   let(:admin_user) { create(:user, :admin) }
+  let(:other_user) { create(:user) }
 
   describe "ユーザー登録ページ" do
     before do
@@ -54,6 +55,21 @@ RSpec.describe "Users", type: :system do
 
       it "ユーザー情報が表示されることを確認" do
         expect(page).to have_content user.name
+      end
+    end
+
+    context "ユーザーのフォロー/アンフォロー処理", js: true do
+      before do
+        login_for_system(user)
+        visit user_path(other_user)
+      end
+
+      it "ユーザーのフォロー/アンフォローができること" do
+        expect(page).to have_button 'Follow'
+        click_button 'Follow'
+        expect(page).to have_button 'Unfollow'
+        click_button 'Unfollow'
+        expect(page).to have_button 'Follow'
       end
     end
   end
